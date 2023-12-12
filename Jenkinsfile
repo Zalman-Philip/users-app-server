@@ -15,7 +15,7 @@ pipeline {
             steps {
                 script {
                 echo 'Linting...'
-                sh 'npm i'
+                sh 'npm i --prefix ./'
                 sh 'npm run lint'
                 // Add your linting steps here
                 }
