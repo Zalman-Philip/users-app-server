@@ -4,6 +4,7 @@ export type UserType = {
   password: string;
   username: string;
 };
+
 export type LoginDetailsType = {
   email: string;
   password: string;

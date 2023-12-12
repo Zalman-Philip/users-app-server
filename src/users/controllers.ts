@@ -5,7 +5,7 @@ export const registerUser = async (req: Request, res: Response) => {
   try {
     const userFromClient = req.body;
     const user = await service.registerUser(userFromClient);
-    res.send(user);
+    return res.send(user);
   } catch (error) {
     return Promise.reject(error);
   }
@@ -15,7 +15,7 @@ export const getUserById = async (req: Request, res: Response) => {
   try {
     const { id } = req.params;
     const user = await service.getUserById(id);
-    res.send(user);
+    return res.send(user);
   } catch (error) {
     return Promise.reject(error);
   }
@@ -24,7 +24,7 @@ export const login = async (req: Request, res: Response) => {
   try {
     const loginDetails = req.body;
     const token = await service.login(loginDetails);
-    res.send(token);
+    return res.send(token);
   } catch (error) {
     return Promise.reject(error);
   }
