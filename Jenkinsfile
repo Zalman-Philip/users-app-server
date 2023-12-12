@@ -12,6 +12,8 @@ pipeline {
         stage('Lint users server') {
             steps {
                 echo 'Linting...'
+                sh 'npm i'
+                sh 'npm run lint'
                 // Add your linting steps here
             }
         }
