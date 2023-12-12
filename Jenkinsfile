@@ -15,8 +15,8 @@ pipeline {
                 // Add your linting steps here
             }
         }
-
-       post {
+    }
+    post {
         success {
             script {
                 echo 'Linting passeeed. You may now merge.'
