@@ -30,7 +30,6 @@ pipeline {
                         def action = currentBuild.rawBuild.getAction(hudson.model.CauseAction)
                         def cause = action?.causes?.find { it instanceof hudson.triggers.SCMTrigger.SCMTriggerCause }
                         def payload = cause?.getBuildData()?.getRemoteData()?.getPayload()
-
                         echo "GitHub Event: ${action?.shortDescription}"
                         echo "Webhook Payload: ${payload}"
                     } catch (Exception e) {
