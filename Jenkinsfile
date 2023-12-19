@@ -22,7 +22,6 @@ pipeline {
                         echo "No GitHub Release Tag found."
                         // Add any other steps you need for when TAG_NAME does not exist
                     }
-
                     // Access webhook payload and headers
                     echo 'Getting request details'
                     try {
