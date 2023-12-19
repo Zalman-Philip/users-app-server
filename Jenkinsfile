@@ -23,6 +23,23 @@ pipeline {
                         // Add any other steps you need for when TAG_NAME does not exist
                     }
                 }
+                script {
+                    echo 'getting request details'
+                    try {
+                        def requestBody = request.getReader().text
+                        def headers = request.getHeaderNames()
+                        headers.each { 
+                          header -> 
+                            println "$header: ${request."$header"}"
+                        }
+                        def jsonParser = new JsonSlurper()
+                        def payload = jsonParser.parseText(requestBody)
+                        println payload.action
+                        echo 'success'
+                    } catch {
+                        echo 'failed'
+                    }
+                }
             }
         }
     }
