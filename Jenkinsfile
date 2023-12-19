@@ -36,8 +36,8 @@ pipeline {
                         def payload = jsonParser.parseText(requestBody)
                         println payload.action
                         echo 'success'
-                    } catch {
-                        echo 'failed'
+                    } catch (Exception e) {
+                        echo 'Failed to get request details: ${e.message}'
                     }
                 }
             }
