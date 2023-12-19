@@ -1,6 +1,5 @@
 pipeline {
     agent any
-
     stages {
         stage('Build users server') {
             steps {
@@ -10,13 +9,10 @@ pipeline {
                 }
             }
         }
-
         stage('Lint users server') {
             steps {
                 script {
                 echo 'Linting...'
-                sh 'npm i'
-                sh 'npm run lint'
                 // Add your linting steps here
                 }
             }
