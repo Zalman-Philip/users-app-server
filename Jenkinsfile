@@ -1,3 +1,4 @@
+import groovy.json.JsonSlurper
 pipeline {
     agent any
     triggers {
@@ -24,7 +25,6 @@ pipeline {
                     }
                 }
                 script {
-                    import groovy.json.JsonSlurper
                     echo 'getting request details'
                     try {
                         def requestBody = request.getReader().text
