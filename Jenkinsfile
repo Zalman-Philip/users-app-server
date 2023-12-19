@@ -1,32 +1,28 @@
 pipeline {
     agent any
-    stages {
-        stage('Build users server') {
-            steps {
-                script {
-                echo 'Building...'
-                // Add your build steps here
-                }
-            }
-        }
-        stage('Lint users server') {
-            steps {
-                script {
-                echo 'Linting...'
-                // Add your linting steps here
-                }
-            }
-        }
+    triggers {
+        githubPush()
     }
-    post {
-        success {
-            script {
-                echo 'Linting passeeed. You may now merge.'
-            }
-        }
-        failure {
-            script {
-                echo 'Pipeline failed. Blocking pull request merge.'
+    stages {
+        stage('Checkout') {
+            steps {
+                script {
+                    sh 'printenv'
+                    echo "Checking out code........"
+                    def pullRequestBranch = env.GITHUB_PR_SOURCE_BRANCH ?: 'main'
+                    checkout([$class: 'GitSCM', branches: [[name: "*/${pullRequestBranch}"]], userRemoteConfigs: [[url:'https://github.com/Zalman-Philip/users-app-server.git']]])
+                    // Check if TAG_NAME exists
+                    def TAG_NAME = sh(script: "git tag --contains ${env.GIT_COMMIT}", returnStdout: true).trim()
+                    // Remove the leading "v" from the tag name
+                    TAG_NAME = TAG_NAME.replaceAll(/^v/, '')
+                    if (TAG_NAME) {
+                        echo "GitHub Release Tag Name: ${TAG_NAME}"
+                        // Add any other steps you need for when TAG_NAME exists
+                    } else {
+                        echo "No GitHub Release Tag found."
+                        // Add any other steps you need for when TAG_NAME does not exist
+                    }
+                }
             }
         }
     }
